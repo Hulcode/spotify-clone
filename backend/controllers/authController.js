@@ -36,10 +36,9 @@ async function registerUser(req, res) {
     res.cookie("jwt", accessToken, {
       httpOnly: true,
       maxAge: maxAge * 1000,
-      secure: true,
-      sameSite: "none",
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
     });
-
     res.status(200).json({
       ...userData,
       success: true,
@@ -108,11 +107,12 @@ async function loginUser(req, res) {
     }
     const { password: _, ...userData } = user.toObject();
     const accessToken = generateToken(user._id, user.isAdmin);
+
     res.cookie("jwt", accessToken, {
       httpOnly: true,
       maxAge: maxAge * 1000,
-      secure: true,
-      sameSite: "none",
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
     });
 
     res.status(200).json({
