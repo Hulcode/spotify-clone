@@ -106,7 +106,6 @@ const listSong = async (req, res) => {
 // REMOVE SONG
 const removeSong = async (req, res) => {
   const isAdmin = req.user.isAdmin;
-
   if (!isAdmin) {
     return res
       .status(403)

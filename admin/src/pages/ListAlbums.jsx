@@ -3,11 +3,12 @@ import { toast } from "react-toastify";
 import { LucideTrash2 } from "lucide-react";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/paths";
+import { useNavigate } from "react-router-dom";
 
 const ListAlbums = () => {
   const [albums, setAlbums] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const navigate = useNavigate();
   const fetchAlbums = async () => {
     try {
       setLoading(true);
@@ -44,6 +45,9 @@ const ListAlbums = () => {
     } catch (err) {
       console.error("Error deleting album:", err);
       toast.error(err?.response?.data?.message || "Failed to delete album");
+      if (err?.response?.data?.message === "Do not have required permissions") {
+        navigate("/register");
+      }
     }
   };
 

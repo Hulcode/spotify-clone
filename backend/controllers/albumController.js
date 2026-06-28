@@ -71,7 +71,7 @@ const removeAlbum = async (req, res) => {
   const isAdmin = req.user.isAdmin;
 
   if (!isAdmin) {
-    return res.status(400).json({ message: "Do not have required permitions" });
+    return res.status(403).json({ message: "Do not have required permitions" });
   }
   try {
     await albumModel.findByIdAndDelete(req.params.id);
