@@ -3,7 +3,7 @@ import { BASE_URL } from "./paths";
 
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
-  timeout: 60000,
+  timeout: 100000,
   withCredentials: true,
 });
 
