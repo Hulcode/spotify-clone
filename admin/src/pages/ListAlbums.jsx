@@ -45,7 +45,7 @@ const ListAlbums = () => {
     } catch (err) {
       console.error("Error deleting album:", err);
       toast.error(err?.response?.data?.message || "Failed to delete album");
-      if (err?.response?.data?.message === "Do not have required permissions") {
+      if (err.response?.status === 403) {
         navigate("/register");
       }
     }

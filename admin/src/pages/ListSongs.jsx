@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const ListSongs = () => {
   const [songs, setSongs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate;
+  const navigate = useNavigate();
   const fetchSongs = async () => {
     try {
       setLoading(true);
@@ -23,7 +23,7 @@ const ListSongs = () => {
       console.error("Error fetching songs:", err);
       toast.error(err?.response?.data?.message || "Failed to load songs");
       setSongs([]);
-      if (err?.response?.data?.message === "Do not have required permissions") {
+      if (err.response?.status === 403) {
         navigate("/register");
       }
     } finally {
