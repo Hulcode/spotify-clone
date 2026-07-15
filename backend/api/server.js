@@ -3,13 +3,13 @@ import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 import { v2 as cloudinary } from "cloudinary";
-import connectDB from "./config/mongodb.js";
-import connectCloudinary from "./config/cloudinary.js";
-import songRouter from "./routes/songRoute.js";
-import albumRouter from "./routes/albumRouter.js";
-import authRouter from "./routes/authRoutes.js";
+import connectDB from "../config/mongodb.js";
+import connectCloudinary from "../config/cloudinary.js";
+import songRouter from "../routes/songRoute.js";
+import albumRouter from "../routes/albumRouter.js";
+import authRouter from "../routes/authRoutes.js";
 import cookieParser from "cookie-parser";
-import jwtCheck from "./middleware/jwtProtection.js";
+import jwtCheck from "../middleware/jwtProtection.js";
 import jwt from "jsonwebtoken";
 // App config
 
@@ -17,7 +17,7 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 // Connect services
-connectDB();
+await connectDB();
 connectCloudinary();
 
 // Middlewares
@@ -60,5 +60,5 @@ app.get("/api/auth/check", (req, res) => {
     });
   }
 });
-
-app.listen(port, () => console.log(`Server started on ${port}`));
+export default app;
+// app.listen(port, () => console.log(`Server started on ${port}`));
